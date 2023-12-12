@@ -1,0 +1,98 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Participation index{% endblock %}
+
+{% block content %}
+    <style>
+
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: block;
+            margin: 0 5px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination li:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination li:hover a {
+            color: #fff;
+        }
+    </style>
+    </style>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid pb-0">
+            <h4 class="mb-3">Participation</h4>
+            <div class="row">
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 d-flex justify-content-end">
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <table class="table">
+                        <thead class="table-info">
+                        <tr>
+                            <th  style="font-weight: bold;">IdPart</th>
+                            <th  style="font-weight: bold;">DatePart</th>
+                            <th  style="font-weight: bold;">IdUser</th>
+                            <th  style="font-weight: bold;">IdEvent</th>
+                            <th  style="font-weight: bold;">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for participation in participations %}
+                            <tr>
+                                <td>{{ participation.idPart }}</td>
+                                <td>{{ participation.datePart ? participation.datePart|date('Y-m-d') : '' }}</td>
+                                <td>{{ participation.id.getNomUser() }}</td>
+                                <td>{{ participation.eventid.getEventnom() }}</td>
+                                <td>
+                                    <a href="{{ path('app_participation_show', {'idPart': participation.idPart}) }}"
+                                       class="btn btn-sm bg-primary-light">
+                                        <i class="far fa-eye"></i> Show
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3">Pas de resultats </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        {{ knp_pagination_render(participations) }}
+    </div>
+{% endblock %}

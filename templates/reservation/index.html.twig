@@ -1,0 +1,206 @@
+{% extends 'frontClient.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Inclure animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+{% endblock %}
+
+{% block content %}
+    {% for flashMessage in app.flashes('success') %}
+        <div id="flash-message" class="alert alert-success" style="margin-top: 100px;">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <style>
+        .card {
+            background-color: #DCDCDC;
+            border: 1px solid #808080;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            color: #6a0dad; /*violet*/
+        }
+
+        .card-text {
+            color: #333;
+        }
+
+        .card a {
+            color: #007bff; /*bleu*/
+        }
+
+        .card a:hover {
+            color: #0056b3; /*bleu plus foncé*/
+        }
+    </style>
+
+    <div class="d-flex justify-content-center flex-wrap mt-4 card-container">
+        {% for reservation in reservations %}
+            <div class="card m-3" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title swipe-animation">{{ reservation.reservlib }}</h5>
+                    <p class="card-text" ><strong>Service :</strong> {{ reservation.libservice }}</p>
+                    <p class="card-text"><strong>Email :</strong> {{ reservation.idUser.email }}</p>
+                    <a href="{{ path('app_reservation_show', {'reservid': reservation.reservid}) }}"
+                        class="btn btn-sm bg-primary-light">
+                        <i class="far fa-eye"></i> </a>
+                    <a href="{{ path('app_reservation_edit', {'reservid': reservation.reservid}) }}" ><i class="far fa-edit"></i> </a>
+                    {{ include('reservation/_delete_form.html.twig') }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{{ path('app_reservation_new') }}" ><i class="fas fa-plus-circle"></i> Réserver un Freelancer</a>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{{ path('app_client') }}" >
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+
+    <style>
+        .card {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+        }
+    </style>
+
+
+
+    <style>
+        .mt-4 {
+            margin-top: 5rem;
+        }
+
+        .card {
+            border: 3px solid black;
+
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+        }
+
+        .card-text {
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            margin-right: 1rem;
+        }
+        .card-container {
+            padding-top: 2rem;
+        }
+
+
+
+        /* Styles pour la container de la carte */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        /* Styles pour la carte */
+        .card {
+            width: 300px;
+            border: 1px solid #808080;
+            border-radius: 4px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Styles pour le lien "Create new" */
+        .create-new-link {
+            display: inline-block;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .create-new-link:hover {
+            background-color: #0062cc;
+        }
+
+        /* Styles pour le lien "Back to Home" */
+        .back-to-home-link {
+            font-size: 18px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .back-to-home-link:hover {
+            color: #007bff;
+        }
+        /* */
+        .swipe-animation {
+            position: relative;
+        }
+
+        .swipe-animation:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #007bff;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out 0s;
+        }
+
+        .swipe-animation:hover:before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+
+
+
+    </style>
+    <script>
+        $(document).ready(function() {
+            $(".swipe-animation").addClass("animated zoomIn");
+            setTimeout(function() {
+                $(".swipe-animation").removeClass("animated zoomIn");
+            }, 1000);
+        });
+    </script>
+
+
+
+
+
+{% endblock %}

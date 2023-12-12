@@ -1,0 +1,51 @@
+{% extends 'frontClient.html.twig' %}
+
+{% block title %}
+    <h1>User Likes</h1>
+{% endblock %}
+
+{% block content %}
+    <style>
+        .user-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .user-card:hover {
+            transform: scale(1.05);
+        }
+
+        .user-card h3 {
+            color: #007bff;
+        }
+
+        .user-card p {
+            color: #6c757d;
+        }
+    </style>
+
+    <!-- Déplacer ce bloc vers un nouvel emplacement -->
+    <div class="container" style="margin-top: 100px;">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2>Your Likes</h2>
+                {% for like in likes %}
+                    {% if like.interactedUser != app.user %}
+                        <div class="user-card">
+                            <h3>{{ like.interactedUser.NomComplet }}</h3>
+                            <!-- Ajoutez ici les détails supplémentaires que vous souhaitez afficher -->
+                            <p>Email: {{ like.interactedUser.email }}</p>
+                            <!-- Ajoutez d'autres informations utilisateur -->
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Fin du déplacement -->
+
+{% endblock %}

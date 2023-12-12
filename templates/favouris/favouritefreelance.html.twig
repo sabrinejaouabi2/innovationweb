@@ -1,0 +1,95 @@
+{% extends 'frontFreelancer.html.twig' %}
+
+{% block content %}
+    <br> <br>
+    <style>
+
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: block;
+            margin: 0 5px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination li:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination li:hover a {
+            color: #fff;
+        }
+    </style>
+    <h1 class="text-center">Mes favoris</h1>
+    <br>
+    {% if pagination|length == 0 %}
+        <p>Vous n'avez aucun favori pour le moment.</p>
+    {% else %}
+        <table class="table table-striped">
+            <thead >
+            <tr>
+
+                <th scope="col">Nom</th>
+                <th scope="col">Thème</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Image</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for favori in pagination %}
+                <tr>
+                    <th scope="row">
+                        {{ favori.eventnom }}</th>
+                    <td>{{ favori.eventtheme }}</td>
+                    <td>{{ favori.datedebutevent|date('d/m/Y') }}</td>
+                    <td>{{ favori.datefinevent|date('d/m/Y') }}</td>
+                    <td><img  width="100px" height="100px" src="{{ asset('images/' ~ favori.eventimage) }}" alt="{{ favori.eventnom }}" width="50"></td>
+                    <td>
+
+                        <form method="post" action="{{ path('delete_favorite', {'eventid': favori.eventid}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ favori.eventid) }}">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                <i class="bi bi-trash-fill"></i>
+                                Supprimer
+                            </button>
+                        </form>
+
+
+                    </td>
+
+
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        {{ knp_pagination_render(pagination) }}
+    {% endif %}
+
+
+{% endblock %}

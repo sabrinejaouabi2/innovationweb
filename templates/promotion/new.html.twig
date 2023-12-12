@@ -1,0 +1,91 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}New Promotion{% endblock %}
+
+{% block content %}
+
+    <style>
+        .help-block {
+            color: red;
+            padding-left: 25px;
+            position: relative;
+        }
+    </style>
+
+    <div class="page-wrapper" style="padding-top: 100px; width: 1000px;margin-left: 360px;">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_start(form,{'attr':
+                                {'novalidate': 'novalidate'}}
+                            ) }}
+                            <div class="row">
+
+                                <div class="col-12" style="margin-bottom: 30px; margin-top: 20px;">
+                                    <div class="mb-3">
+                                        <h4>Ajouter Promotion</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Nom Du Promotion
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.nompromo, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.nompromo) }}  </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Date de début
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.datedebutpromo, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block"> {{ form_errors(form.datedebutpromo) }}  </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Date de fin
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.datefinpromo, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.datefinpromo) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="doctor-submit text-end">
+                                        <div class="text-right" style="padding-top: 25px;">
+                                            <button class="btn btn-primary btn-add" style="width:150px"> {{ button_label|default('Enregistrer') }} </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                &nbsp;
+
+                                <div class="col-12">
+                                    <div class="doctor-submit text-end">
+                                        <div class="text-right" >
+                                            <a class="btn btn-primary btn-outline-light" style="width:150px"   href="{{ path('app_promotion_index') }}">Retour</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

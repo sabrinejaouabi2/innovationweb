@@ -1,0 +1,131 @@
+{% extends 'baseBack.html.twig' %}
+{% block title %}New evenment
+{% endblock %}
+{% block content %}
+    <h1>Create new Evenment</h1>
+    <style>
+        .help-block {
+            color: red;
+            padding-left: 25px;
+            position: relative;
+        }
+    </style>
+
+    {% for flash_message in app.session.flashbag.get('success') %}
+        <div class="alert alert-success" role="alert">{{ flash_message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_start(form,{'attr':
+                                {'novalidate': 'novalidate'}}
+                            ) }}
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <div class="form-heading">
+                                        <h4>evenment Details</h4>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Nom
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.eventnom, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.eventnom) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Theme
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.eventtheme, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block"> {{ form_errors(form.eventtheme) }}  </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>
+                                            DateDebut
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.datedebutevent, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block"> {{ form_errors(form.datedebutevent) }}  </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>DateFin
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.datefinevent, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.datefinevent) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>AdresseEvenment
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.eventadresse, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.eventadresse) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Description
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.eventdescription, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.eventdescription) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Image
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.eventimage, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.eventimage) }}  </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <div class="doctor-submit text-end">
+                                        <div class="text-right">
+                                            <button class="btn btn-primary btn-add" style="width:150px">{{ button_label|default('Enregistrer') }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                &nbsp;
+                                <div class="col-12">
+                                    <div class="doctor-submit text-end">
+                                        <div class="text-right">
+                                            <a class="btn btn-primary btn-add" style="width:150px"   href="{{ path('app_evenement_index') }}">Retour</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

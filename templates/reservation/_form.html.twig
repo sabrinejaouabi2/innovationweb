@@ -1,0 +1,64 @@
+<div class="my-4 ">
+{{ form_start(form) }}
+  <div class="form-group">
+    {{ form_label(form.reservlib, 'Reservation Title') }}
+    {{ form_widget(form.reservlib, {'attr': {'class': 'form-control form-control-sm'}}) }}
+    {{ form_errors(form.reservlib) }}
+  </div>
+  <div class="form-group">
+    {{ form_label(form.idUser, 'User Email') }}
+    {{ form_widget(form.idUser, {'attr': {'class': 'form-control form-control-sm'}}) }}
+    {{ form_errors(form.idUser) }}
+  </div>
+  <div class="form-group">
+    {{ form_label(form.libservice, 'Service Ttile') }}
+    {{ form_widget(form.libservice, {'attr': {'class': 'form-control form-control-sm'}}) }}
+    {{ form_errors(form.libservice) }}
+  </div>
+  
+  <button class="btn btn-primary btn-sm" formnovalidate>{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+</div>
+<style>
+  .form-control-sm {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .btn-sm {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .my-4 {
+    margin-top: 7rem; /* set the top margin to 5rem */
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto; /* center horizontally */
+    display: block; /* make it a block-level element */
+  }
+  
+</style>
+<script>
+  // Get the input elements
+  const reservlib = document.querySelector("#{{ form.reservlib.vars.id }}");
+  reservlib.addEventListener("input", validateInput);
+  
+  function validateInput(event) {
+    const input = event.target;
+    // Check if the input value is less than 5 characters
+    if (input.value.length < 5) {
+      // Show the alert message
+      input.classList.add("is-invalid");
+      input.nextElementSibling.classList.remove("d-none");
+    } else {
+      // Hide the alert message
+      input.classList.remove("is-invalid");
+      input.nextElementSibling.classList.add("d-none");
+    }
+  }
+
+  
+  </script>

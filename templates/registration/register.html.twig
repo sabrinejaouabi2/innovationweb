@@ -1,0 +1,110 @@
+{% block title %}{% endblock %}
+<head>
+    <title>Inscription</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+{% block body %}
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Vous pouvez s'inscrire sur notre plateforme</h2>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-user-plus"></span>
+                        </div>
+
+                        <h3 class="text-center mb-4">Remplir ce formulaire pour faire l'inscription</h3>
+
+                        {{ form_start(registrationForm) }}
+
+
+
+                        {{ form_row(registrationForm.prenom_user, {
+                            label: 'Prénom:',
+                            attr: {
+                                class: 'form-control'
+                            }
+                        }) }}
+
+                        {{ form_row(registrationForm.nom_user, {
+                            label: 'Nom:',
+                            attr: {
+                                class: 'form-control'
+                            }
+                        }) }}
+
+
+                        {{ form_row(registrationForm.email, {
+                            label: 'Email:',
+                            attr: {
+                                class: 'form-control'
+                            }
+                        }) }}
+
+
+
+
+                        {{ form_row(registrationForm.plainPassword, {
+                            label: 'Mot de passe:',
+                            attr: {
+                                class: 'form-control'
+                            }
+                        }) }}
+
+                        {{ form_row(registrationForm.adresse_user, {
+                            label: 'Adresse:',
+                            attr: {
+                                class: 'form-control'
+                            }
+                        }) }}
+
+
+                        {{ form_label(registrationForm.roles, 'Role:') }}
+                        {{ form_widget(registrationForm.roles) }}
+
+                        <br/>
+
+
+
+                        <br/>
+
+                        <button type="submit" class="form-control btn btn-primary rounded submit px-1">S'inscrire</button>
+                        <br/><br/>
+
+                        {{ form_end(registrationForm) }}
+
+                        <button class="form-control btn btn-primary rounded submit px-3" type="button"
+                                onclick="window.location.replace('{{ path('app_accueil') }}')">Retour</button>
+
+                        <br/><br/>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+{% endblock %}
+
+

@@ -1,0 +1,40 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Résultats de la recherche{% endblock %}
+
+{% block content %}
+    <br> <br>
+    <h4 class="mb-3">Résultats de la recherche pour "{{ search_query }}"</h4>
+    <br> <br>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Adresse</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if users|length > 0 %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.prenomUser }}</td>
+                    <td>{{ user.nomUser }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.adresseUser }}</td>
+                    <td>
+                        <a href="{{ path('app_user_show', {'id': user.id})}}" class="btn btn-primary btn-sm">Afficher</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun utilisateur trouvé.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

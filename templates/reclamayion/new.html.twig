@@ -1,0 +1,138 @@
+{% extends 'frontClient.html.twig' %}
+
+{% block title %}New Reclamation{% endblock %}
+
+
+
+{% block content %}
+    <br> <br> <br>
+
+    <style>
+        .help-block {
+            color: red;
+            padding-left: 25px;
+            position: relative;
+        }
+
+    </style>
+
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_start(form,{'attr':
+                                {'novalidate': 'novalidate'}}
+                            ) }}
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <h4>Ajouter Reclamation</h4>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>votre nom
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.nom, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block"> {{ form_errors(form.nom) }}  </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>
+                                            votre Prenom
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.prenom, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block"> {{ form_errors(form.prenom) }}  </div>
+
+                                    </div></div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Tel
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.tel, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.tel) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Mail
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.mail, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.mail) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Reclamationdate
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.recldate, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.recldate) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Reclamationobject
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.reclobject, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.reclobject) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>ReclamationDescription
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.recldescription, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.recldescription) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="form-group local-forms">
+                                        <label>Type
+                                            <span class="login-danger">*</span>
+                                        </label>
+                                        {{ form_widget(form.type, {attr:{'class':'form-control'}}) }}
+                                        <div class="help-block">   {{ form_errors(form.type) }}  </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="doctor-submit text-end">
+                                        <div class="text-right">
+                                            <button class="btn btn-primary btn-add" style="width:120px" > {{ button_label|default('Save') }} </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                &nbsp;
+
+                                <div class="col-12">
+                                    <div class="doctor-submit text-end">
+                                        <div class="text-right">
+                                            <a class="btn btn-primary btn-add" style="width:120px"   href="{{ path('app_client') }}">back to list</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card-body">
+              {{ include('reservation/_form.html.twig', {'button_label': 'Update'}) }}
+              <div class="d-flex justify-content-end mt-3">
+                <a class="btn btn-primary btn-sm me-2" href="{{ path('app_reservation_index_back') }}">back to list</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

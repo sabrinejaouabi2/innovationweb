@@ -1,0 +1,37 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block content %}
+<br> <br>
+    <div class="d-flex flex-column align-items-center">
+        <h1>Reservation Details</h1>
+
+    <table class="table">
+        <tbody>
+           
+            <tr>
+                <th>Reservlib</th>
+                <td>{{ reservation.reservlib }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ reservation.idUser.email}}</td>
+            </tr>
+            <tr>
+                <th>Libservice</th>
+                <td>{{ reservation.libservice }}</td>
+            </tr>
+        </tbody>
+    </table>
+<div>
+    <br> <br>
+    <a class="btn btn-primary btn-sm me-2" href="{{ path('app_reservation_index_back') }}">back to list</a>
+
+
+</div>
+<style>
+    h1 {
+        margin-top: 20px;
+    }
+    
+</style>
+{% endblock %}

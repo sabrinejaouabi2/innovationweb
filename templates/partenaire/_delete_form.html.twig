@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('app_partenaire_delete', {'idpart': partenaire.idpart}) }}"
+      onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ partenaire.idpart) }}">
+    <button class="btn btn-sm bg-danger-light"><i class="fa fa-trash" style="font-size:17px"></i></button>
+</form>
+

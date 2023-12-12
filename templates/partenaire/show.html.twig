@@ -1,0 +1,66 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Partenaire{% endblock %}
+
+
+   {% block content %}
+
+       <div class="page-wrapper" style="padding-top: 100px;  width: 1000px;margin-left: 360px;">
+           <h4 class="mb-3" style="padding-left: 20px;">Détails du Partenaire</h4>
+           <div class="content container-fluid pb-0">
+               <div class="card">
+                   <div class="col-md-12 col-12">
+                       <nav aria-label="breadcrumb" class="page-breadcrumb">
+                           <ol class="breadcrumb"></ol>
+                       </nav>
+                   </div>
+                   <div class="content">
+                       <div class="container-fluid">
+                           <div class="row" style="justify-content: center;">
+                               <div class="page-header">
+                                   <div class="row align-items-center">
+                                       <div class="col-md-12 d-flex justify-content-end">
+                                           <div class="text-right">
+                                               <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_partenaire_index') }}">
+                                                   <i class="feather-corner-up-left "></i>
+                                                   Liste Des Partenaires
+                                               </a>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div><br>
+                           <div class="card">
+                               <div class="card-body">
+                                   <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+                                   <tbody>
+                                   <tr>
+
+                                       <td><img width="200px" height="130px" src="{{ asset('/images/' ~ partenaire.logopart) }}"  alt="">  </td>
+
+                                   </tr>
+                                   <tr>
+                                       <th>Id partenaire</th>
+                                       <td>{{ partenaire.idpart}}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Nom du Partenaire</th>
+                                       <td>{{ partenaire.nompart }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Code du Promo</th>
+                                       <td>{{ partenaire.codepromo.codepromo }}</td>
+                                   </tr>
+
+
+                                   </tbody>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   {% endblock %}

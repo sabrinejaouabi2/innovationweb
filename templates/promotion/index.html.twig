@@ -1,0 +1,137 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}promotion index{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div class="page-wrapper" style="padding-left: 200px;">
+    {% for flash_message in app.session.flashbag.get('success') %}
+        <div class="alert alert-success" role="alert">{{ flash_message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+    <div class="content container-fluid pb-0" >
+        <h4 class="mb-3" >Liste Des Promotions</h4>
+        <div class="row">
+            <div class="page-header" >
+                <div class="row align-items-center"   >
+                    <div class="col-md-12 d-flex justify-content-end" >
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-add" style="width:190px;" href="{{ path('app_promotion_new') }}">
+                                <i class="feather-plus-square me-1" ></i>
+                                Ajouter Promotion
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 20px;">
+
+                <table class="table datatable-basic table table-borderless hover-table" id="datatable">
+                    <div class="card-body">
+                        <div class="header-elements">
+                            <thead class="thead-light">
+
+                            <tr>
+
+                                <th>Code Promotion</th>
+                                <th>Libellé Promotion</th>
+                                <th>Date De Début</th>
+                                <th>Date De Fin</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+
+                            {% for promotion in promotions %}
+                                <tr>
+
+
+                                    <td>{{ promotion.codepromo}}</td>
+                                    <td>{{ promotion.nompromo }}</td>
+                                    <td>{{ promotion.datedebutpromo ? promotion.datedebutpromo|date('Y-m-d') : '' }}</td>
+                                    <td>{{ promotion.datefinpromo ? promotion.datefinpromo|date('Y-m-d') : '' }}</td>
+
+
+                                    <td style="display: inline-flex;margin-left: 0px;" colspan="3">
+
+                                        <a href="{{ path('app_promotion_show', {'codepromo':promotion.codepromo}) }}"
+                                           class="btn btn-sm bg-primary-light">
+                                            <i class="fa fa-eye" style="font-size:17px"></i>
+                                        </a>
+
+                                        &nbsp;
+                                        <a href="{{ path('app_promotion_edit', {'codepromo':promotion.codepromo}) }}"
+                                           class="btn btn-sm bg-info-light">
+                                            <i class="fa fa-edit" style="font-size:17px"></i>
+                                        </a>
+                                        &nbsp;
+
+                                        {{ include('promotion/_delete_form.html.twig') }}
+
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">no records found</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                            </tbody>
+                        </div>
+                    </div>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+
+        <script>
+            function confirmDelete() {
+                var checkboxes = document.querySelectorAll('input[name="promotion[]"]:checked');
+                if (checkboxes.length === 0) {
+                    alert('Sélectionnez plus que partenaire pour supprimer.');
+                }
+                //else {
+                //  var confirmDelete = confirm('Êtes-vous sûr de vouloir supprimer les partenaires sélectionnés ?');
+                //if (confirmDelete) {
+                //  document.getElementById('delete-form').submit();
+                //    } else {
+                //      return false;
+                //  }
+                //  }
+            }
+
+        </script>
+
+
+
+        <script>
+            function toggleCheckboxes() {
+                var checkboxes = document.getElementsByName('promotion[]');
+                var selectAllLink = document.getElementById('select-all');
+
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = !checkboxes[i].checked;
+                }
+
+                if (selectAllLink.innerHTML == 'Sélectionner tout') {
+                    selectAllLink.innerHTML = 'Désélectionner tout';
+                } else {
+                    selectAllLink.innerHTML = 'Sélectionner tout';
+                }
+            }
+        </script>
+
+
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends 'baseFront.html.twig' %}
+{% block content %}
+    <style>
+        .search-container {
+            position: relative;
+        }
+        .search-container {
+            position: relative;
+        }
+        form[action='/evnet/search'] {
+            display: flex;
+            align-items:left;
+            justify-content: left;
+        }
+
+        form[action='/evnet/search'] input[type='text'] {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        }
+
+        form[action='/evnet/search'] input[type='text']:focus {
+            border-color: #66afe9;
+            outline: 1;
+            box-shadow:1 0 0px rgba(102, 175, 233, 0.6);
+        }
+
+        form[action='/event/search'] button[type='submit'] {
+            padding: 10px;
+            margin-left: 4px;
+            background-color: #428bca;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        form[action='/event/search'] button[type='submit']:hover {
+            background-color: green;
+        }
+        .gridd{
+            display:grid;
+            grid-template-columns :repeat(3,1fr);
+            grid-gap :20px ;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: block;
+            margin: 0 5px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination li:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination li:hover a {
+            color: #fff;
+        }
+    </style>
+    <!-- ======= event Section ======= -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-left">
+                <h2>Nos events</h2>
+                <form action="{{ path('event_search') }}">
+                    <input type="text" name="q" placeholder="Search for event">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ul id="portfolio-flters">
+                        <li data-filter="*" class="filter-app">All</li>
+                        {% set themes = [] %}
+                        {% for event in events %}
+                            {% if event.eventtheme not in themes %}
+                                {% set themes = themes|merge([event.eventtheme]) %}
+                                <li data-filter=".filter-{{ event.eventtheme }}">{{ event.eventtheme }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <form method="get" action="{{ path('event_filter') }}">
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label class="sr-only" for="startDate">Début</label>
+                        <input type="date" class="form-control mb-2" id="startDate" name="datedebutevent" placeholder="Date début">
+                    </div>
+                    <div class="col-auto">
+                        <label class="sr-only" for="endDate">Fin</label>
+                        <div class="input-group mb-2">
+                            <input type="date" class="form-control" id="endDate" name="datefinevent" placeholder="Date fin">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Filtrer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <br><br>
+            {% for flash_message in app.session.flashbag.get('success') %}
+                <div class="alert alert-success" role="alert">{{ flash_message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                {% for event in events %}
+                    <div class="col-md-4 portfolio-item filter-{{ event.eventnom }}">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('/images/' ~ event.eventimage) }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4>{{ event.eventnom }}</h4>
+                                <p>{{ event.eventtheme }}</p>
+                                <div class="portfolio-links">
+                                    <a href="{{ path('app_detailhistorique_show', {'eventid': event.eventid}) }}" >Lire plus <i class="bx bx-link"></i></a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <div class="pagination">
+        {{ knp_pagination_render(events) }}
+    </div>
+
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            // Ajouter un événement de soumission du formulaire de filtrage
+            $('form').on('submit', function(event) {
+                event.preventDefault();
+                var form = $(this);
+                var url = form.attr('action');
+                var data = form.serialize();
+
+                // Envoyer la requête AJAX pour récupérer les résultats filtrés
+                $.ajax({
+                    url: url,
+                    data: data,
+                    type: 'GET',
+                    success: function(response) {
+                        // Mettre à jour la liste déroulante de filtres
+                        var filters = {};
+                        $.each(response, function(index, event) {
+                            filters[event.eventnom] = '.filter-' + event.eventnom;
+                        });
+                        updateFilters(filters);
+                    }
+                });
+            });
+
+            // Fonction pour mettre à jour les filtres dans la liste déroulante
+            function updateFilters(filters) {
+                var filterList = $('#portfolio-flters');
+                filterList.empty();
+                filterList.append('<li data-filter="*" class="filter-app">All</li>');
+                $.each(filters, function(filter, value) {
+                    filterList.append('<li data-filter="' + value + '">' + filter + '</li>');
+                });
+            }
+        });
+
+
+    </script>
+
+
+
+
+
+
+{% endblock %}

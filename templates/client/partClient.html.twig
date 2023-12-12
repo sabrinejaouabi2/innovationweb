@@ -1,0 +1,218 @@
+{% extends 'frontClient.html.twig' %}
+{% block content %}
+
+
+    <style>
+
+        .search-container {
+            position: relative;
+        }
+        .search-container {
+            position: relative;
+        }
+        form[action='/part/search'] {
+            display: flex;
+            align-items:left;
+            justify-content: left;
+        }
+        form[action='/part/search'] input[type='text'] {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+            transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        }
+        form[action='/part/search'] input[type='text']:focus {
+            border-color: #66afe9;
+            outline: 1;
+            box-shadow:1 0 0px rgba(102, 175, 233, 0.6);
+        }
+        form[action='/part/search'] button[type='submit'] {
+            padding: 10px;
+            margin-left: 4px;
+            background-color: #428bca;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+        form[action='/part/search'] button[type='submit']:hover {
+            background-color: green;
+        }
+        .gridd{
+            display:grid;
+            grid-template-columns :repeat(3,1fr);
+            grid-gap :20px ;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: block;
+            margin: 0 5px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination .disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .pagination li:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        .pagination li:hover a {
+            color: #fff;
+        }
+
+
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            to {
+                transform: scale3d(1, 1, 1);
+            }
+        }
+        .my-btn {
+            border-radius: 10px;
+            border: 2px solid #007bff
+        }
+        .btn-blink {
+            animation: blink 1s ease-in-out infinite alternate;
+            background-color: #007bff;
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.5;
+            }
+        }
+    </style>
+
+    <!-- ======= Offer Section ======= -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-left">
+                <br>
+                <h1>Nos Partenaires</h1>
+                <img src="{{ asset('assetsfront/img/part5.png') }}" alt="image partenaire" style="float:right;width:650px;height:400px;">
+                <br><br><br>
+                <h2>Les meilleures offres</h2>
+                <h2 style="color: #0a53be">pour vous</h2>
+                <h2>accompagner</h2>
+                <br>
+                <h5>Les meilleurs acteurs du marché sont à vos côtés
+                    pour vous aider à avancer sereinement dans votre vie de freelance.</h5>
+                <h5>Freelanci sélectionne pour vous les meilleurs outils et services et négocie les meilleurs tarifs.</h5>
+                <h5>Afin de bénéficier de ces offres, vous devez être connecté à votre profil Freelanci.</h5>
+                <br><br><br>
+                <form action="{{ path('part_search') }}">
+                    <input type="text" name="q" placeholder="Partenaire ou Promotion">
+                    <button type="submit">Rechercher</button>
+                </form>
+
+            </div>
+            <br><br>
+
+            <div class="row portfolio-container" data-aos-delay="200">
+                {% for part in parts %}
+                    <div class="col-md-4 portfolio-item filter-{{ part.nompart }}">
+                        <div >
+                            <form action="{{ path('app_partenaire_nbvue', {'idpart': part.idpart}) }}" method="post" class="d-inline">
+                                <img src="{{ asset('/images/' ~ part.logopart) }}" class="img-fluid" alt=""  id="part{{ part.idpart }}" data-toggle="modal"  data-target="#myModal{{ part.idpart }}" >
+                            </form>
+                            <div class="portfolio-info">
+                                <h4>{{ part.nompart }}</h4>
+                                <p>{{ part.codepromo.getNompromo() }}</p>
+                                <div class="portfolio-links">
+                                    <a href="{{ path('app_detailspa_shows', {'idpart': part.idpart}) }}" >Lire plus <i class="bx bx-link"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for part in parts %}
+                    <div class="modal fade" id="myModal{{ part.idpart }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-body px-5">
+                                    <div class="row align-items-center">
+                                        <div class="col-12 col-md-6 mb-4 mb-md-0">
+                                            <img src="{{ asset('/images/' ~ part.logopart) }}" class="img-fluid animated zoomIn" alt="">
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <h3 class="font-weight-bold " data-aos="fade-right" style=" font-size: 50px; font-family: Poppins;background: linear-gradient(to right, #007bff, #25FDE9);-webkit-background-clip: text;-webkit-text-fill-color: transparent;line-height: 1.5;">{{ part.nompart }}</h3>
+                                            <div class="mt-3" data-aos="fade-left">
+                                                <p class="lead">
+                                                    Vous pouvez maintenant beneficier de notre partenaire
+                                                    <span style="color:#007bff;" class=""> {{ part.nompart|split(' ')|join('</span> <span style="color:#007bff;" class="animated pulse animate__animated">') }} </span>,
+                                                   Grace à notre plateforme
+                                                    <span style="color:#007bff;" class=""> Freelanci </span>.
+                                                </p>
+                                                {#                     <a href="{{path ('app_login')}}" class="btn btn-primary btn-lg mt-4 my-btn btn-blink" style="font-size: 20px;" id="myButton" data-aos="zoom-in">{{ 'S\'inscrire maintenant'|trans }}</a>#}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <script>
+                    $(document).ready(function() {
+                        $('img[data-toggle="modal"]').click(function() {
+                            $($(this).data("target")).modal("show");
+                        });
+                    });
+
+                </script>
+                <script>
+                    {% for part in parts %}
+                    document.getElementById("part{{ part.idpart }}").addEventListener("click", function() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "{{ path('app_partenaire_nbvue', {'idpart': part.idpart}) }}");
+                        xhr.send();
+                    });
+                    {% endfor %}
+                </script>
+
+            </div>
+        </div>
+    </section>
+
+
+    <div class="pagination">
+        {{ knp_pagination_render(parts) }}
+    </div>
+{% endblock %}

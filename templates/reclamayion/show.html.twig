@@ -1,0 +1,82 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block content %}
+    <h1>Reclamation</h1>
+<div class="page-wrapper" style="width: 919px;">
+    <div class="content container-fluid pb-0">
+        <div class="card">
+            <div class="col-md-12 col-12">
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb"></ol>
+                </nav>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row" style="justify-content: center;">
+                        <div class="page-header">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <div class="text-right">
+                                        <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_reclamayion_index') }}">
+                                            <i class="feather-corner-up-left "></i>
+                                            Liste Reclamation
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Recid</th>
+                <td>{{ reclamation.recid }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ reclamation.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ reclamation.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ reclamation.tel }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ reclamation.mail }}</td>
+            </tr>
+            <tr>
+                <th>Recldate</th>
+                <td>{{ reclamation.recldate ? reclamation.recldate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Reclobject</th>
+                <td>{{ reclamation.reclobject }}</td>
+            </tr>
+            <tr>
+                <th>Recldescription</th>
+                <td>{{ reclamation.recldescription }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ reclamation.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

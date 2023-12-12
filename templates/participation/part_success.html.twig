@@ -1,0 +1,27 @@
+{% extends 'frontFreelancer.html.twig' %}
+
+{% block title %}Participer effectué avec succès{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Participer effectué avec succès</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Merci pour votre participer!</p>
+                        {#  <p>Veuillez trouver ci-dessous le QR code pour accéder aux détails de votre offre:</p>
+                        <div class="text-center">
+                            <img src="{{ qr_code_data_uri(event) }}" alt="QR code" class="img-fluid">
+                        </div> #}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

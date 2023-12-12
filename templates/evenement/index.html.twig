@@ -1,0 +1,132 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}événement index{% endblock %}
+
+{% block content %}
+<style>
+
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .pagination a {
+        display: block;
+        margin: 0 5px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    .pagination a:hover {
+        background-color: #ddd;
+    }
+    .pagination .active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+    .pagination .disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    .pagination li:hover {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+    .pagination li:hover a {
+        color: #fff;
+    }
+</style>
+
+<div class="page-wrapper" >
+    <div class="content container-fluid pb-0">
+        <h4 class="mb-3">Evenement</h4>
+        <div class="row">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <div class="text-right">
+                            <br> <br>
+                            <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_evenement_new') }}">
+                                <i class="feather-plus-square me-1"></i>
+                                Ajouter Evenement
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" >
+                {% for flash_message in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success" role="alert">{{ flash_message }}</div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+                <table class="table datatable-basic table table-borderless hover-table" id="datatable">
+                    <div class="card-body">
+                        <div>
+                            <thead >
+
+                            <tr>
+                                <th style="font-weight: bold;">ID d'Evenement</th>
+                                <th style="font-weight: bold;">Nom d'Evenement</th>
+                                <th style="font-weight: bold;">Theme d'Evenement</th>
+                                <th style="font-weight: bold;">Date debut d'Evenement</th>
+                                <th style="font-weight: bold;">Date find d'Evenement</th>
+                                <th style="font-weight: bold;">Adresse d'Evenement</th>
+                                <th style="font-weight: bold;">Description d'Evenement</th>
+                                <th style="font-weight: bold;">Image d'Evenement</th>
+                                <th style="font-weight: bold;">actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for evenement in evenements %}
+                                <tr>
+                                    <td>{{ evenement.eventid }}</td>
+                                    <td>{{ evenement.eventnom }}</td>
+                                    <td>{{ evenement.eventtheme }}</td>
+                                    <td>{{ evenement.datedebutevent ? evenement.datedebutevent|date('Y-m-d') : '' }}</td>
+                                    <td>{{ evenement.datefinevent ? evenement.datefinevent|date('Y-m-d') : '' }}</td>
+                                    <td>{{ evenement.eventadresse }}</td>
+                                    <td>{{ evenement.eventdescription }}</td>
+                                    <td><img width="100px" height="100px" src="{{ asset('/images/' ~ evenement.eventimage) }}"  alt="">  </td>
+                                    <td style="display: inline-flex;" colspan="3">
+
+                                        <a href="{{ path('app_evenement_show', {'eventid':evenement.eventid}) }}"
+                                           class="btn btn-sm bg-primary-light">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+                                        &nbsp;
+                                        <a href="{{ path('app_evenement_edit', {'eventid':evenement.eventid}) }}"
+                                           class="btn btn-sm bg-info-light">
+                                            <i class="far fa-edit"></i>
+                                        </a>
+                                        &nbsp;
+                                        {{ include('evenement/_delete_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">Pas de résultats</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                            </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        {{ knp_pagination_render(evenements) }}
+    </div>
+    {% endblock %}

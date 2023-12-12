@@ -1,0 +1,67 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Promotion{% endblock %}
+
+
+   {% block content %}
+
+       <div class="page-wrapper" style="padding-top: 100px;  width: 1000px;margin-left: 360px;">
+           <h4 class="mb-3" style="padding-left: 20px;">Détails du Promotion</h4>
+           <div class="content container-fluid pb-0">
+               <div class="card">
+                   <div class="col-md-12 col-12">
+                       <nav aria-label="breadcrumb" class="page-breadcrumb">
+                           <ol class="breadcrumb"></ol>
+                       </nav>
+                   </div>
+                   <div class="content">
+                       <div class="container-fluid">
+                           <div class="row" style="justify-content: center;">
+                               <div class="page-header">
+                                   <div class="row align-items-center">
+                                       <div class="col-md-12 d-flex justify-content-end">
+                                           <div class="text-right">
+                                               <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_promotion_index') }}">
+                                                   <i class="feather-corner-up-left "></i>
+                                                   Liste Des Promotions
+                                               </a>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div><br>
+                           <div class="card">
+                               <div class="card-body">
+                                   <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+                                   <tbody>
+
+                                   <tr>
+                                       <th>Code Promotion</th>
+                                       <td>{{ promotion.codepromo}}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Libellé Du Promotion</th>
+                                       <td>{{ promotion.nompromo}}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Date De Début</th>
+                                       <td>{{ promotion.datedebutpromo ? promotion.datedebutpromo|date('Y-m-d') : '' }}</td>
+                                   </tr>
+
+                                   <tr>
+                                       <th>Date De Fin</th>
+                                       <td>{{ promotion.datefinpromo ? promotion.datefinpromo|date('Y-m-d') : '' }}</td>
+                                   </tr>
+
+
+                                   </tbody>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   {% endblock %}

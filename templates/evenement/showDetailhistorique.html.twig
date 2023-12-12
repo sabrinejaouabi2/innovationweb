@@ -1,0 +1,88 @@
+{% extends 'frontFreelancer.html.twig' %}
+
+{% block title %}événement{% endblock %}
+
+
+   {% block content %}
+       <br> <br> <br> <br>
+       <div class="page-wrapper" >
+           <div class="content container-fluid pb-0">
+               <div class="card">
+                   <div class="col-md-12 col-12">
+                       <nav aria-label="breadcrumb" class="page-breadcrumb">
+                           <ol class="breadcrumb"></ol>
+                       </nav>
+
+                   </div>
+                   <br> <br> <br>
+                   <div class="card" >
+                       <div class="card-body">
+                           <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+                           <tbody>
+                           <tr>
+                               <th>Eventnom</th>
+                               <td>{{ evenement.eventnom }}</td>
+                           </tr>
+                           <tr>
+                               <th>Eventtheme</th>
+                               <td>{{ evenement.eventtheme }}</td>
+                           </tr>
+                           <tr>
+                               <th>Datedebutevent</th>
+                               <td>{{ evenement.datedebutevent ? evenement.datedebutevent|date('Y-m-d') : '' }}</td>
+                           </tr>
+                           <tr>
+                               <th>Datefinevent</th>
+                               <td>{{ evenement.datefinevent ? evenement.datefinevent|date('Y-m-d') : '' }}</td>
+                           </tr>
+                           <tr>
+                               <th>Eventadresse</th>
+                               <td>{{ evenement.eventadresse }}</td>
+                           </tr>
+                           <tr>
+                               <th>Eventdescription</th>
+                               <td>{{ evenement.eventdescription }}</td>
+                           </tr>
+                           <tr>
+                               <th>Eventimage</th>
+                               <td><img width="150px" height="150px" src="{{ asset('/images/' ~ evenement.eventimage) }}"  alt="">  </td>
+
+                           </tr>
+                           <div>
+
+                               <a href="{{ path('valider_part_client', {'eventid': evenement.eventid}) }}" >Participer <i class="bx bx-link"></i></a>
+
+                               {# <a href="{{ path('app_edit_participation', {'idPart': 1}) }}">Participer <i class="bx bx-link"></i></a> #}
+
+
+
+                           </div>
+                           </tbody>
+
+
+                           </table>
+                           <div class="content">
+                               <div class="container-fluid">
+                                   <div class="row" style="justify-conte: center;">
+                                       <div class="page-header">
+                                           <div class="row align-items-center">
+                                               <div class="col-md-12 d-flex justify-content-end">
+                                                   <div class="text-right">
+                                                       <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_event') }}">
+                                                           <i class="feather-corner-up-left "></i>
+                                                           Liste Evenements
+                                                       </a>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   {% endblock %}

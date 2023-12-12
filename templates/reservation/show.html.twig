@@ -1,0 +1,42 @@
+{% extends 'frontClient.html.twig' %}
+
+{% block content %}
+
+
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ reservation.reservlib }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Email : {{ reservation.idUser.email }}</h6>
+                <p class="card-text">Service : {{ reservation.libservice }}</p>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('app_reservation_index') }}" class="card-link">Back to List</a>
+
+<style>
+    .mt-4 {
+        margin-top: 5rem;
+        padding-top: 5rem;
+    }
+
+    .card {
+        border: 3px solid black;
+        padding-top: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+    }
+
+    .card-text {
+        margin-bottom: 1rem;
+    }
+
+    .card-link {
+        margin-top: 1rem;
+        display: block;
+        text-align: center;
+    }
+</style>
+{% endblock %}

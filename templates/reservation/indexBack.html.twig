@@ -1,0 +1,74 @@
+{% extends 'baseBack.html.twig' %}
+
+
+
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="content container-fluid pb-0">
+        <h4 class="mb-3">Reservations </h4>
+        <div class="row">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_reservation_new_back') }}">
+                                <i class="feather-plus-square me-1"></i>
+                                Ajouter Reservation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <table class="table datatable-basic table table-borderless hover-table" id="datatable">
+                    <div class="card-body">
+                        <div class="header-elements">
+                            <thead class="table-info">
+
+                            <tr>
+                                <th style="font-weight: bold;">Titre Reservation</th>
+                                <th style="font-weight: bold;">Email</th>
+                                <th style="font-weight: bold;">Service</th>
+                                <th style="font-weight: bold;">actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for reservation in reservations %}
+                                <tr>
+                                    <td>{{ reservation.reservlib }}</td>
+                                    <td>{{ reservation.idUser.email }}</td>
+                                    <td>{{ reservation.libservice }}</td>
+                                    <td>
+
+                                    <td >
+
+                                        <a href="{{ path('app_reservation_show_back', {'reservid': reservation.reservid}) }}"
+                                           class="btn btn-sm bg-primary-light">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+                                        &nbsp;
+                                        <a href="{{ path('app_reservation_edit_back', {'reservid': reservation.reservid}) }}"
+                                           class="btn btn-sm bg-info-light">
+                                            <i class="far fa-edit"></i>
+                                        </a>
+                                        &nbsp;
+                                        {{ include('reservation/_delete_form_back.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">no records found</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                            </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

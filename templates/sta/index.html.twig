@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+
+    .btn-add {
+        background-color: #5eb5e0;
+        border-color: #5eb5e0;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        transition: all 0.2s ease-in-out;
+        width: 100px;
+    }
+
+    .btn-add:hover {
+        background-color: white;
+        color: #5eb5e0;
+    }
+    h1 {
+        text-align: center;
+    }
+    /* Style pour ajouter une bordure et de la marge au titre */
+    h1 {
+        border: 2px solid #5eb5e0;
+        padding: 10px;
+        margin-top: 50px;
+    }
+
+</style>
+    <h1>Statistiques Reclamations</h1>
+    <div class="text-right">
+        <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_admin') }}">
+            <i class="feather-corner-up-left "></i>
+            RETOUR
+        </a>
+    </div>
+
+    <canvas id="myChart"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Clients', 'Freelances'],
+                datasets: [{
+                    label: 'Nombre de réclamations',
+                    data: [{{ statistiques.client }}, {{ statistiques.freelance }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+{% endblock %}

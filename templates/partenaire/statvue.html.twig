@@ -1,0 +1,57 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+<canvas id="myChart" style="max-width: 800px; max-height: 500px; display: block;"></canvas>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var nbvueCounts = {{ nbvueCounts|json_encode|raw }};
+    var nbvueData = [];
+    var nbvueLabels = [];
+    for (var i = 0; i < nbvueCounts.length; i++) {
+        nbvueLabels.push('Partenaire ' +nbvueCounts[i]['nompart']);
+        nbvueData.push(nbvueCounts[i]['nbvueSum']);
+    }
+    console.log('nbvueCounts:', nbvueCounts);
+    console.log('nbvueData:', nbvueData);
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: nbvueLabels,
+            datasets: [{
+                label: 'number of views is',
+                data: nbvueData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                            return previousValue + currentValue;
+                        });
+                        var currentValue = dataset.data[tooltipItem.index];
+                        var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                        return percentage + "% (" + currentValue + ")";
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

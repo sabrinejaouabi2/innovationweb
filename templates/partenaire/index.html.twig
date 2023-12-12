@@ -1,0 +1,190 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}partenaire index{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <div class="page-wrapper" style="padding-left: 200px;">
+    <div class="content container-fluid pb-0" >
+        {% for flash_message in app.session.flashbag.get('success') %}
+            <div class="alert alert-success" role="alert">{{ flash_message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <h4 class="mb-3" >Liste Des Partenaires</h4>
+        <div class="row">
+            <div class="page-header" >
+                <div class="row align-items-center"   >
+                    <div class="col-md-12 d-flex justify-content-end" >
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-add" style="width:190px;" href="{{ path('app_partenaire_new') }}">
+                                <i class="feather-plus-square me-1" ></i>
+                                Ajouter Partenaire
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 20px;">
+                <form method="POST" action="{{ path('app_partenaire_delete_multiple') }}" id="delete-form">
+                <table class="table datatable-basic table table-borderless hover-table" id="datatable">
+                    <div class="card-body">
+                        <div class="header-elements">
+                            <thead class="thead-light">
+
+                            <tr>
+                                <th> </th>
+                                <th> </th>
+                                <th>Nom Partenaire</th>
+                                <th>Promotion</th>
+                                <th>Nombre de vues</th>
+                                <th>actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <a href="#" id="select-all" onclick="toggleCheckboxes()" style="padding-left: 30px"> Sélectionner tout</a>
+
+                            {% for partenaire in partenaires %}
+                                <tr>
+                                    <td><input type="checkbox" name="partenaire[]" value="{{ partenaire.idpart }}"></td>
+                                    <td><img width="80px" height="50px" src="{{ asset('/images/' ~ partenaire.logopart) }}"  alt="">  </td>
+                                    <td>{{ partenaire.nompart }}</td>
+                                    <td style>{{ partenaire.codepromo.getNompromo()}}</td>
+                                    <td>{{ partenaire.nbvue }}</td>
+                                    <td style="display: inline-flex;margin-left: 0px;" colspan="3">
+
+                                        <a href="{{ path('app_partenaire_show', {'idpart':partenaire.idpart}) }}"
+                                           class="btn btn-sm bg-primary-light">
+                                            <i class="fa fa-eye" style="font-size:17px"></i>
+                                        </a>
+
+                                        &nbsp;
+                                        <a href="{{ path('app_partenaire_edit', {'idpart':partenaire.idpart}) }}"
+                                           class="btn btn-sm bg-info-light">
+                                            <i class="fa fa-edit" style="font-size:17px"></i>
+                                        </a>
+                                        &nbsp;
+
+                                            {{ include('partenaire/_delete_form.html.twig') }}
+
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">no records found</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                            </tbody>
+                        </div>
+                    </div>
+                </table>
+
+                </form>
+                <div class="card-footer" >
+                    <button type="submit" id="delete-selected" class="btn btn--2" onclick="confirmDelete() "><i class="fa fa-trash" style="font-size:17px"></i>  Supprimer sélectionnés</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+        <canvas id="myChart" style="max-width: 800px; max-height: 500px; display: block;"></canvas>
+        {% block javascripts %}
+
+            <script>
+                function confirmDelete() {
+                    var checkboxes = document.querySelectorAll('input[name="partenaire[]"]:checked');
+                    if (checkboxes.length === 0) {
+                        alert('Sélectionnez plus que partenaire pour supprimer.');
+                    }
+                    //else {
+                      //  var confirmDelete = confirm('Êtes-vous sûr de vouloir supprimer les partenaires sélectionnés ?');
+                        //if (confirmDelete) {
+                          //  document.getElementById('delete-form').submit();
+                    //    } else {
+                      //      return false;
+                      //  }
+                  //  }
+                }
+
+            </script>
+
+
+
+            <script>
+                function toggleCheckboxes() {
+                    var checkboxes = document.getElementsByName('partenaire[]');
+                    var selectAllLink = document.getElementById('select-all');
+
+                    for (var i = 0; i < checkboxes.length; i++) {
+                        checkboxes[i].checked = !checkboxes[i].checked;
+                    }
+
+                    if (selectAllLink.innerHTML == 'Sélectionner tout') {
+                        selectAllLink.innerHTML = 'Désélectionner tout';
+                    } else {
+                        selectAllLink.innerHTML = 'Sélectionner tout';
+                    }
+                }
+            </script>
+
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var nbvueCounts = {{ nbvueCounts|json_encode|raw }};
+                var nbvueData = [];
+                var nbvueLabels = [];
+                for (var i = 0; i < nbvueCounts.length; i++) {
+                    nbvueLabels.push('Partenaire ' +nbvueCounts[i]['nompart']);
+                    nbvueData.push(nbvueCounts[i]['nbvueSum']);
+                }
+                console.log('nbvueCounts:', nbvueCounts);
+                console.log('nbvueData:', nbvueData);
+                var myChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: nbvueLabels,
+                        datasets: [{
+                            label: 'number of views is',
+                            data: nbvueData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(54, 162, 235, 0.5)',
+                                'rgba(255, 206, 86, 0.5)',
+                                'rgba(75, 192, 192, 0.5)',
+                                'rgba(153, 102, 255, 0.5)',
+                                'rgba(255, 159, 64, 0.5)',
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(54, 162, 235, 0.5)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                                        return previousValue + currentValue;
+                                    });
+                                    var currentValue = dataset.data[tooltipItem.index];
+                                    var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                                    return percentage + "% (" + currentValue + ")";
+                                }
+                            }
+                        }
+                    }
+                });
+            </script>
+        {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,180 @@
+{% extends 'baseBack.html.twig' %}
+
+
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+
+    form {
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+
+    button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .fa-search {
+        font-size: 1.2em;
+    }
+
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .pagination a {
+        display: block;
+        margin: 0 5px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    .pagination a:hover {
+        background-color: #ddd;
+    }
+    .pagination .active {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+    .pagination .disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    .pagination li:hover {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+    .pagination li:hover a {
+        color: #fff;
+    }
+</style>
+<div class="page-wrapper">
+    <div class="content container-fluid pb-0">
+        <h4 class="mb-3">Gestion des utilisateurs</h4><br/>
+        <form action="{{ path('user_search') }}">
+            <input type="text" name="q" placeholder="">
+            <button type="submit">Rechercher</button>
+        </form>
+        <div class="row">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-md-12 d-flex justify-content-end">
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <table class="table datatable-basic table table-borderless hover-table" id="datatable">
+                    <div class="card-body">
+                        <div class="header-elements">
+                            <thead class="thead-light">
+
+                            <tr>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Adresse</th>
+                                <th>Actions</th>
+                                <th>Statut</th>
+                                <th>Etat</th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            {% for user in pagination %}
+                                <tr>
+
+
+                                    <td>{{ user.prenomUser }}</td>
+                                    <td>{{ user.nomUser }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.adresseUser }}</td>
+
+                                    <td style="display: inline-flex;margin-left: 78px;" colspan="3">
+
+
+
+                                        <a href="{{ path('app_user_show', {'id': user.id})}}"
+                                           class="btn btn-sm bg-primary-light">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+
+
+                                        {{ include('user/_delete_form.html.twig') }}
+                                    <td>{{ user.isBlocked }}</td>
+
+                                    <td>
+
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ path('app_user_block', {'id': user.id}) }}" class="btn btn-outline-danger">&nbsp;&nbsp;Bloquer&nbsp;&nbsp;</a>
+                                            <a href="{{ path('app_user_unblock', {'id': user.id}) }}" class="btn btn-outline-success">Débloquer</a>
+                                        </div>
+
+                                    </td>
+
+                                    </td>
+
+
+
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="8">Pas d'utilisateurs</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                </table>
+                <div class="pagination">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+                <br><br><br>
+                <hr style="border-color: #87CEFA; border-width: 3px;">
+
+
+                {% set usercount = 0 %}
+                {% for user in users %}
+                {% set usercount = usercount + 1  %}
+                {% endfor %}
+
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-4">
+                        <div class="card bg-muted text-dark bg-opacity-25">
+                            <div class="card-body" style="text-align: center;">
+                                <h5 class="card-title card-title-dash" style="color: #343A40; font-weight: bold;">Nombre d'utilisateurs sur notre plateforme:</h5>
+                                <p class="card-text" style="font-size: 36px; font-weight: bold; color: black;">{{ usercount }}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                {% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}événement{% endblock %}
+
+
+   {% block content %}
+
+       <div class="page-wrapper" style="width: 919px;">
+           <div class="content container-fluid pb-0">
+               <div class="card">
+                   <div class="col-md-12 col-12">
+                       <nav aria-label="breadcrumb" class="page-breadcrumb">
+                           <ol class="breadcrumb"></ol>
+                       </nav>
+                   </div>
+                   <div class="content">
+                       <div class="container-fluid">
+                           <div class="row" style="justify-content: center;">
+                               <div class="page-header">
+                                   <div class="row align-items-center">
+                                       <div class="col-md-12 d-flex justify-content-end">
+                                           <div class="text-right">
+                                               <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_evenement_index') }}">
+                                                   <i class="feather-corner-up-left "></i>
+                                                   Liste Evenements
+                                               </a>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div><br>
+                           <div class="card">
+                               <div class="card-body">
+                                   <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+                                   <tbody>
+                                   <tr>
+                                       <th>Eventid</th>
+                                       <td>{{ evenement.eventid }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Eventnom</th>
+                                       <td>{{ evenement.eventnom }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Eventtheme</th>
+                                       <td>{{ evenement.eventtheme }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Datedebutevent</th>
+                                       <td>{{ evenement.datedebutevent ? evenement.datedebutevent|date('Y-m-d') : '' }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Datefinevent</th>
+                                       <td>{{ evenement.datefinevent ? evenement.datefinevent|date('Y-m-d') : '' }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Eventadresse</th>
+                                       <td>{{ evenement.eventadresse }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Eventdescription</th>
+                                       <td>{{ evenement.eventdescription }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>Eventimage</th>
+                                       <td><img width="50px" height="50px" src="{{ asset('/images/' ~ evenement.eventimage) }}"  alt="">  </td>
+
+                                   </tr>
+                                   </tbody>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   {% endblock %}

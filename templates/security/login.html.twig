@@ -1,0 +1,101 @@
+{% block title %}{% endblock %}
+
+<head>
+    <title>Se connecter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+{% block content %}
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Veuillez-vous connecter afin d'accèder à votre espace personel.</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <span class="fa fa-user-o"></span>
+                        </div>
+                        <h3 class="text-center mb-4">Connexion</h3>
+                        <form method="post" class="login-form">
+
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="mb-3">
+                                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="form-group">
+                                <label for="inputEmailUser">Email:</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+
+                            <div class="form-group" >
+                                <label for="inputPassword">Mot de passe:</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            </div>
+
+
+
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+
+
+                            {#
+                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                            See https://symfony.com/doc/current/security/remember_me.html
+
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" name="_remember_me"> Remember me
+                                </label>
+                            </div>
+                            #}
+                            <div class="form-group">
+                                <button class="form-control btn btn-primary rounded submit px-3" type="submit">
+                                    Se connecter
+                                </button>
+                                <br/><br/>
+
+                                <button class="form-control btn btn-primary rounded submit px-3" type="button"
+                                        onclick="window.location.replace('{{ path('app_accueil') }}')">Retour</button>
+
+                                <br/>
+
+<br/>
+                                <a href="{{ path('app_register') }}" style="text-align:center;">Vous n'avez pas de compte ? Inscrivez-vous.</a>
+                                <br/>
+                                <a href="{{ path('forgot') }}" style="text-align:center;">Mot de passe oublié ?</a>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+{% endblock %}

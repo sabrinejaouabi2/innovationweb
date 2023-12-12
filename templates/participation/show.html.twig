@@ -1,0 +1,56 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Participation{% endblock %}
+   {% block content %}
+<div class="page-wrapper" style="width: 919px;">
+    <div class="content container-fluid pb-0">
+        <div class="card">
+            <div class="col-md-12 col-12">
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb"></ol>
+                </nav>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row" style="justify-content: center;">
+                        <div class="page-header">
+                            <div class="row align-items-center">
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <div class="text-right">
+                                        <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_participation_index') }}">
+                                            <i class="feather-corner-up-left "></i>
+                                            Liste Participation
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                    <tbody>
+                                    <tr>
+                                        <th>ID Particicpation</th>
+                                        <td>{{ participation.idPart }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date Participation</th>
+                                        <td>{{ participation.datePart ? participation.datePart|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email User</th>
+                                        <td>{{ participation.id.getUsername()}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Evenement ID</th>
+                                        <td>{{ participation.eventid.getEventid()}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endblock %}

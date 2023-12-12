@@ -1,0 +1,63 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}partenaire{% endblock %}
+
+
+   {% block content %}
+       <br> <br>
+       <div class="page-wrapper" style="width: 1700px ;justify-content: center; align-items: center;">
+           <div class="content container-fluid pb-0">
+               <div class="card">
+                   <div class="col-md-12 col-12">
+                       <nav aria-label="breadcrumb" class="page-breadcrumb">
+                           <ol class="breadcrumb"></ol>
+                       </nav>
+
+                   </div>
+                   <div class="content">
+                       <div class="container-fluid">
+                           <div class="row" style="justify-content: center;">
+                               <div class="page-header">
+                                   <div class="row align-items-center">
+                                       <div class="col-md-12 d-flex justify-content-end">
+                                           <div class="text-right">
+                                               <a class="btn btn-primary btn-add" style="width:190px" href="{{ path('app_part') }}">
+                                                   <i class="feather-corner-up-left "></i>
+                                                   Liste Partenaires
+                                               </a>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div><br>
+                           <div class="card">
+                               <div class="card-body">
+                                   <table class="table datatable-basic dataTable no-footer" id="DataTables_Table_0" ="grid" aria-describedby="DataTables_Table_0_info">
+
+                                   <tbody>
+                                   <tr>
+
+                                       <td><img width="200px" height="150px" src="{{ asset('/images/' ~ partenaire.logopart) }}"  alt="">  </td>
+
+                                   </tr>
+                                   <tr>
+                                       <th>Libellé Partenaire</th>
+                                       <td>{{ partenaire.nompart }}</td>
+                                   </tr>
+                                   <tr>
+                                       <th>code promo</th>
+                                       <td>{{ partenaire.codepromo.getNompromo()}}</td>
+                                   </tr>
+
+
+
+                                   </tbody>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   {% endblock %}

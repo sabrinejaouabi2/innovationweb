@@ -1,0 +1,64 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}événement index{% endblock %}
+
+{% block content %}
+    <br> <br>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid pb-0">
+            <h4 class="mb-3">vos reclamation</h4>
+            <div class="row">
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col-md-12 d-flex justify-content-end">
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <table class="table datatable-basic table table-borderless hover-table" id="datatable" style="width: 100%;">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Recid</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Tel</th>
+                            <th>Mail</th>
+                            <th>Recldate</th>
+                            <th>Reclobject</th>
+                            <th>Recldescription</th>
+                            <th>Type</th>
+                            <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for reclamation in reclamations %}
+                            <tr>
+                                <td>{{ reclamation.recid }}</td>
+                                <td>{{ reclamation.nom }}</td>
+                                <td>{{ reclamation.prenom }}</td>
+                                <td>{{ reclamation.tel }}</td>
+                                <td>{{ reclamation.mail }}</td>
+                                <td>{{ reclamation.recldate ? reclamation.recldate|date('Y-m-d') : '' }}</td>
+                                <td>{{ reclamation.reclobject }}</td>
+                                <td>{{ reclamation.recldescription }}</td>
+                                <td>{{ reclamation.type }}</td>
+                                <td style="display: inline-flex; margin-left: 78px;">
+                                    <a href="{{ path('app_reclamayion_show', {'recid': reclamation.recid}) }}" class="btn btn-sm bg-primary-light">
+                                        <i class="far fa-eye"></i>
+                                    </a>
+                                    {{ include('reclamayion/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
