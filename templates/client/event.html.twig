@@ -83,37 +83,8 @@
     <section id="portfolio" class="portfolio">
         <div class="container">
 
-            <div class="row" data-aos="fade-up" data-aos-delay="100">
-                <div class="col-lg-12 d-flex justify-content-center">
-                    <ul id="portfolio-flters">
-                        <li data-filter="*" class="filter-app">All</li>
-                        {% set themes = [] %}
-                        {% for event in events %}
-                            {% if event.eventtheme not in themes %}
-                                {% set themes = themes|merge([event.eventtheme]) %}
-                                <li data-filter=".filter-{{event.eventtheme }}">{{event.eventtheme }}</li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <form method="get" action="{{ path('event_filter') }}">
-                <div class="form-row align-items-center">
-                    <div class="col-auto">
-                        <label class="sr-only" for="startDate">Début</label>
-                        <input type="date" class="form-control mb-2" id="startDate" name="datedebutevent" placeholder="Date début">
-                    </div>
-                    <div class="col-auto">
-                        <label class="sr-only" for="endDate">Fin</label>
-                        <div class="input-group mb-2">
-                            <input type="date" class="form-control" id="endDate" name="datefinevent" placeholder="Date fin">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Filtrer</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+
+
 
 
             <br><br>
@@ -136,7 +107,9 @@
                                     <a href="{{ path('app_detailsev_show', {'eventid': event.eventid}) }}" >Lire plus <i class="bx bx-link"></i></a>
                                 </div>
 
-                                <a href="{{ path('add_to_favorites', {'eventid': event.eventid}) }}" class="btn btn-light btn-transparent value="&#x2B50; Favorited">⭐ Favorited</a>
+                                <button type="button" class="btn btn-light btn-transparent" value="{{ event.eventid }}">
+                                    &#x2B50; Favorited
+                                </button>
                             </div>
                         </div>
                     </div>

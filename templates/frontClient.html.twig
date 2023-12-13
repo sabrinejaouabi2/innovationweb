@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FreeLanci </title>
+    <title>NEOTES </title>
 
     <link rel="shortcut icon" type="x-icon" href="assetsfront/img/FreeLanci__1_-removebg-preview.png" />
     <!-- All Plugins Css -->
@@ -94,24 +94,18 @@
                 <!--<a class="nav-brand static-logo" href="#"><img src="assets/img/freelancier.png" width="50" class="logo" alt="" /></a> -->
                 <div class="nav-toggle"></div>
             </div>
-            <div class="nav-menus-wrapper" >
+            <div class="nav-menus-wrapper">
                 <ul class="nav-menu">
-                    <li class="active" ><a href="{{path ('app_client')}}">Home<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{path ('app_event')}}">Événements<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{path ('app_historique')}} ">Historiques<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{path ('myfavorites')}}">Vos Favoris<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{path ('app_reclamayionrec_new_client')}}">Reclamation<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{path ('app_part_Client')}}">Partenaires<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{ path('all_users') }}">Machmaking<span class="submenu-indicator"></span></a></li>
-                    <li><a href="{{ path('user_likes') }}">Your Likes<span class="submenu-indicator"></span></a></li>
-
-
-
-
+                    <li class=""><a href="{{ path('app_client') }}" style="color: #E25E3E;">Home<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('app_event') }}" style="color: #E25E3E;">Événements<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('app_historique') }}" style="color: #E25E3E;">Historiques<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('myfavorites') }}" style="color: #E25E3E;">Vos Favoris<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('app_reclamayionrec_new_client') }}" style="color: #E25E3E;">Reclamation<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('app_part_Client') }}" style="color: #E25E3E;">Partenaires<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('all_users') }}" style="color: #E25E3E;">Machmaking<span class="submenu-indicator"></span></a></li>
+                    <li><a href="{{ path('user_likes') }}" style="color: #E25E3E;">Vos j'aimes<span class="submenu-indicator"></span></a></li>
                 </ul>
-
-
-                        </div>
+            </div>
                     </nav>
         <br> <br>
         <ul class="top-right"  style="display: flex; justify-content: space-between;">
@@ -122,7 +116,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="logout-link" href="{{ path('app_logout') }}" style="background-color: #2f4f4f; color: white; font-weight: bold; font-size: 14px; padding: 8px 16px; border-radius: 20px; text-decoration: none; margin-left: 10px; margin-top: 5px;">Déconnexion</a>
+                    <a class="logout-link" href="{{ path('app_logout') }}" style="background-color: #E25E3E; color: white; font-weight: bold; font-size: 14px; padding: 8px 16px; border-radius: 20px; text-decoration: none; margin-left: 10px; margin-top: 5px;">Déconnexion</a>
                 </li>
             {% endif %}
         </ul>

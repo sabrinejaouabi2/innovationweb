@@ -55,32 +55,6 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route("/event/search", name: "event_search")]
-    public function searchevent(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator)
-    {
-
-
-        $searchQuery = $request->query->get('q');
-
-        $events = $this->getDoctrine()
-            ->getRepository(Evenement::class)
-            ->createQueryBuilder('e')
-            ->where('e.eventnom LIKE :query')
-            ->orWhere('e.eventtheme LIKE :query')
-            ->setParameter('query', '%' . $searchQuery . '%')
-            ->getQuery()
-            ->getResult();
-
-
-        $pagination = $paginator->paginate($events, $request->query->getInt('page', 1), 6);
-
-        return $this->render('default/search.html.twig', [
-
-            'events' => $pagination,
-            'search_query' => $searchQuery,
-
-        ]);
-    }
 
 }
 

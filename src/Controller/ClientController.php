@@ -279,32 +279,6 @@ class ClientController extends AbstractController
     }
 
 
-    #[Route('/produit', name: 'app_prod')]
-    public function allproduit(EntityManagerInterface $entityManager, Request $request, ProduitRepository $ProduitRepo, CategorieRepository $catrepo ): Response
-    {   //Recuperer les filters
-        $filters=$request->get("categorie");
-        //recuperer les produits sans pagination
-        $produits=$ProduitRepo->getProduit($filters);
-
-        // On vérifie si on a une requête Ajax
-        if($request->get('ajax')){
-            return new JsonResponse([
-                'content' => $this->renderView('client/content_front.html.twig', compact('produits'))
-            ]);
-        }
-        $form=$this->createForm(SearchProduitType::class);
-        $search = $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            //on recherche les produit correspondant aux mots
-            $produits=$ProduitRepo->search($search->get('mots')->getData());
-        }
-
-        // Récupérer toutes les catégories
-        $categories = $catrepo->findAll();
-
-        return $this->render('client/produit.html.twig', compact('produits', 'categories', 'form'));
-
-    }
 
 }
 

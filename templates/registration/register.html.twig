@@ -24,8 +24,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-7 col-lg-5">
                     <div class="login-wrap p-4 p-md-5">
-                        <div class="icon d-flex align-items-center justify-content-center">
-                            <span class="fa fa-user-plus"></span>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="{{ asset('images/logosite.png') }} " alt="Form Image" class="form-image" style="width: 150px;">
                         </div>
 
                         <h3 class="text-center mb-4">Remplir ce formulaire pour faire l'inscription</h3>
@@ -83,12 +83,11 @@
 
                         <br/>
 
-                        <button type="submit" class="form-control btn btn-primary rounded submit px-1">S'inscrire</button>
-                        <br/><br/>
+                        <button type="submit" class="form-control  rounded submit px-1" style="background-color: #E25E3E;">S'inscrire</button>                        <br/><br/>
 
                         {{ form_end(registrationForm) }}
 
-                        <button class="form-control btn btn-primary rounded submit px-3" type="button"
+                        <button class="form-control rounded submit px-3" type="button" style="background-color: #E25E3E;"
                                 onclick="window.location.replace('{{ path('app_accueil') }}')">Retour</button>
 
                         <br/><br/>

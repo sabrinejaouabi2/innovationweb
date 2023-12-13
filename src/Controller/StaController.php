@@ -14,7 +14,7 @@ class StaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('SELECT r.type, COUNT(r) as total FROM App\Entity\Reclamation r WHERE r.type IN (:types) GROUP BY r.type');
-        $query->setParameter('types', array('client', 'freelance'));
+        $query->setParameter('types', array('client'));
         $results = $query->getResult();
 
         $statistiques = array();

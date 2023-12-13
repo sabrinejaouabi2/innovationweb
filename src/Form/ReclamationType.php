@@ -23,7 +23,7 @@ class ReclamationType extends AbstractType
             ->add('type', ChoiceType::class, [
         'choices' => [
             'Client' => 'client',
-            'Freelance' => 'freelance',
+
         ],
         'expanded' => true,
         'multiple' => false,

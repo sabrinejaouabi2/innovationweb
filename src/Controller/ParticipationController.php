@@ -109,7 +109,7 @@ $event->getEventtheme();
 
 
     #[Route('/mail/client/{eventid}', name: 'valider_part_client')]
-    public function participerclient(MailerInterface $mailer, Evenement $event): Response
+    public function participerclient(Evenement $event): Response
     {
         // Récupérer l'utilisateur statique une seule fois
         $user = $this->getUser();
@@ -119,7 +119,7 @@ $event->getEventtheme();
         $staticUser = $entityManager->getRepository(User::class)->find($user);
         // Vérifier le nombre de places disponibles pour l'événement
         $participantsCount = $entityManager->getRepository(Participation::class)->count(['eventid' => $event]);
-        if ($participantsCount >5){
+        if ($participantsCount > 5) {
             // Le nombre maximum de participants a été atteint, afficher un message d'erreur
             return $this->render('participation/part_error_client.html.twig', [
                 'event' => $event,
@@ -133,34 +133,14 @@ $event->getEventtheme();
         $par->setDatePart(new \DateTime());
         $event->getEventtheme();
 
-
         $entityManager->persist($par);
         $entityManager->flush();
-        $message = (new Email())
-            ->from('sabrine.jaouabi@esprit.tn')
-            ->to($staticUser->getEmail())
-            ->subject('Confirmation de participation à un événement')
-            ->html("
-        <p style='font-size: 18px;'>Bonjour <span style='font-weight: bold; color:green;'></span>,</p>
-      <p style='font-size: 16px; font-weight: bold;'>Votre demande de participation pour l'événement \"{$event->getEventtheme()}\" prévu le {$event->getDatedebutevent()->format('d/m/Y')} a été confirmée.</p>
 
-        <p style='font-size: 14px;'>Merci de votre confiance.</p>
-        <p style='font-size: 14px;'>Cordialement,</p>
-        <p style='font-size: 14px;'>Equipe de freelanci</p>
-    ");
-
-
-        //->html($this->renderView('participation/part_success.html.twig', ['event' => $event]));
-        // Send the email
-        $result = $mailer->send($message);
-        var_dump($result);
-
-        return $this->render('participation/part_success_client.html.twig',[
+        return $this->render('participation/part_success_client.html.twig', [
             'event' => $event,
-
         ]);
-
     }
+
 
     #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
